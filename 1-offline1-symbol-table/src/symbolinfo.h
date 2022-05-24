@@ -75,7 +75,7 @@ public:
      */
     friend ostream &operator<<(ostream &os, const Symbolinfo &obj)
     {
-        os << "< " << obj.name << " : " << obj.type << " >" << endl;
+        os << "< " << obj.name << " : " << obj.type << ">";
         return os;
     }
 };
