@@ -1,35 +1,56 @@
 #include <bits/stdc++.h>
-#include "scopetable.h"
+#include "symboltable.h"
 using namespace std;
-
 
 int main()
 {
-    /* Symbolinfo info("a", "int");
-    cout << info << endl; */
-    // ScopeTable table(7);
-    // table.insertSymbol("foo", "FUNCTION");
-    // table.insertSymbol("o", "o");
-    freopen("../input.txt", "r", stdin);
+    //freopen("../sample-io/2-input.txt", "r", stdin);
 
-    char cmd;
-    string name, type; // for INSERT
-    ScopeTable *prev = new ScopeTable(7, nullptr);
-    ScopeTable *currentScope = new ScopeTable(7, prev);
-    currentScope->insertSymbol("a", "a");
-    currentScope->insertSymbol("h", "h");
-    currentScope->insertSymbol("k", "k");
-    currentScope->insertSymbol("<=", "RELOP");
-    currentScope->print();
-    /*  while(cin>>cmd){
-         switch (cmd){
-         case 'I':
-             cin>>name>>type;
-             currentScope->insertSymbol(name, type);
-             cout<<endl;
-             break;
-         default:
-             break;
-         }
-     } */
+    char cmd, cmd2;
+    string symbolName, type; // for INSERT
+
+    int scopeTableSize;
+    cin>>scopeTableSize;
+    //log(tag("main"),  scopeTableSize);
+    SymbolTable symbolTable(scopeTableSize);
+    while (cin >> cmd)
+    {
+        switch (cmd)
+        {
+        case 'I':
+            cin >> symbolName >> type;
+            cout<<cmd << " " << symbolName << " " << type << endl << endl;
+            symbolTable.insert(symbolName, type);
+            break;
+        case 'L':
+            cin>> symbolName;
+            cout << cmd << " " << symbolName<< endl << endl;
+            symbolTable.lookup(symbolName);
+            break;
+        case 'D':
+            cin>> symbolName;
+            cout << cmd << " " << symbolName << endl << endl;
+            symbolTable.remove(symbolName);
+            break;
+        case 'P':
+            cin>>cmd2;
+            cout << cmd << " " << cmd2 << endl << endl;
+            if(cmd2 == 'A')
+                symbolTable.printAllScopeTables();
+            else if( cmd2 == 'C')
+                symbolTable.printCurrentScopeTable();
+            break;
+        case 'S':
+            cout<<cmd<<endl<<endl;
+            symbolTable.enterScope();
+            break;
+        case 'E':
+            cout<<cmd<<endl<<endl;
+            symbolTable.exitScope();
+            break;
+        default:
+            cout<<"Invalid command"<<endl;
+            break;
+        }
+    }
 }

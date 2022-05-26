@@ -29,12 +29,7 @@ public:
         this->type = other.type;
         this->next = other.next;
     }
-
-    ~Symbolinfo()
-    {
-        delete next;
-    }
-
+    
     // getters
     string getName()
     {

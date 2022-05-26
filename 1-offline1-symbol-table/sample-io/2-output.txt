@@ -1,0 +1,130 @@
+
+Inserted in ScopeTable# 1 at position 4, 0
+
+
+Inserted in ScopeTable# 1 at position 0, 0
+
+
+Found in ScopeTable# 1 at position 4, 0
+
+
+Not Found
+
+
+Inserted in ScopeTable# 1 at position 4, 1
+
+
+ScopeTable# 1
+
+0 --> < i : VAR >
+1 --> 
+2 --> 
+3 --> 
+4 --> < foo : FUNCTION >< 5 : NUMBER >
+5 --> 
+6 --> 
+
+Not Found
+j is not found
+
+
+Found in ScopeTable# 1 at position 0, 0
+Found it
+Deleted entry at 0,0 in the current scopetable
+
+
+ScopeTable# 1
+
+0 --> 
+1 --> 
+2 --> 
+3 --> 
+4 --> < foo : FUNCTION >< 5 : NUMBER >
+5 --> 
+6 --> 
+
+New ScopeTable with id# 2 is created
+
+
+Inserted in ScopeTable# 2 at position 6, 0
+
+
+Inserted in ScopeTable# 2 at position 1, 0
+
+
+ScopeTable# 2
+
+0 --> 
+1 --> < == : RELOP >
+2 --> 
+3 --> 
+4 --> 
+5 --> 
+6 --> < <= : RELOP >
+ScopeTable# 1
+
+0 --> 
+1 --> 
+2 --> 
+3 --> 
+4 --> < foo : FUNCTION >< 5 : NUMBER >
+5 --> 
+6 --> 
+
+This word already exists
+< <=, RELOP > already exist in the currentScopeTable
+
+
+Inserted in ScopeTable# 2 at position 4, 0
+
+
+Found in ScopeTable# 2 at position 1, 0
+Found it
+Deleted entry at 1,0 in the current scopetable
+
+
+ScopeTable# 2
+
+0 --> 
+1 --> 
+2 --> 
+3 --> 
+4 --> < foo : FUNCTION >
+5 --> 
+6 --> < <= : RELOP >
+ScopeTable# 1
+
+0 --> 
+1 --> 
+2 --> 
+3 --> 
+4 --> < foo : FUNCTION >< 5 : NUMBER >
+5 --> 
+6 --> 
+ScopeTable with id 2 is removed
+Destroying the ScopeTable
+
+
+Inserted in ScopeTable# 1 at position 4, 2
+
+
+Inserted in ScopeTable# 1 at position 2, 0
+
+
+ScopeTable# 1
+
+0 --> 
+1 --> 
+2 --> < k : k >
+3 --> 
+4 --> < foo : FUNCTION >< 5 : NUMBER >< t : t >
+5 --> 
+6 --> 
+ScopeTable with id 1 is removed
+Destroying the First Scope
+Destroying the ScopeTable
+
+NO CURRENT SCOPE
+
+Inserted in ScopeTable# 1 at position 2, 0
+

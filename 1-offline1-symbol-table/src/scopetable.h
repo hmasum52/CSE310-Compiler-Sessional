@@ -10,12 +10,13 @@ using namespace std;
  */
 class ScopeTable
 {
-#define tagMsg "ScopeTable::"
+    const string tagMsg = "ScopeTable::"; // for debugging
+
     Symbolinfo **table; // array of pointers to Symbolinfo(2d array)
-    int total_bukets;   // size of the hash table
+    int tableSize;   // size of the hash table
 
     // to mainatain a list of scope tables in the symbol table
-    ScopeTable *parentScope;
+    ScopeTable *parentScopeTable;
 
     // each table has a unique scope id
     // id format: <parent_id>.<current_id>
@@ -34,10 +35,8 @@ class ScopeTable
      */
     int calculateHash(string key)
     {
-        int idx = sdbmhash(key) % total_bukets;
-        // logger2(tag);
-        // log(key, idx);
-        log(tag(tagMsg), key, idx);
+        int idx = sdbmhash(key) % tableSize;
+        //log(tag(tagMsg), key, idx);
         return idx;
     }
 
@@ -45,57 +44,90 @@ class ScopeTable
      * @brief http://www.cse.yorku.ca/~oz/hash.html
      * sdbmhash is a standard string hash function
      */
-    unsigned long sdbmhash(string str)
+    uint32_t sdbmhash(string str)
     {
-        unsigned long hash = 0;
+        uint32_t hash = 0;
+        //int hash = 0;
         for (int i = 0; i < str.length(); i++)
         {
             hash = str[i] + (hash << 6) + (hash << 16) - hash;
         }
-        log(tag(tagMsg), str, hash);
+        // log(tag(tagMsg), str, hash);
         return hash;
     }
 
 public: // public constructor & funtions ===============================
     /// constructor
-    ScopeTable(int n, ScopeTable *parentScope)
+    ScopeTable(int n, ScopeTable *parentScopeTable)
     {
-        scopeCount = 0;   // initialize child scope count to 0
-        total_bukets = n; // total slots in the hash table
-        table = new Symbolinfo *[total_bukets];
-        for (int i = 0; i < total_bukets; i++)
+        scopeCount = 0;                         // initialize child scope count to 0
+        tableSize = n;                       // total slots in the hash table
+        table = new Symbolinfo *[tableSize]; // allocate memory for the hash table
+
+        // init each slot to nullptr
+        for (int i = 0; i < tableSize; i++)
         {
             table[i] = nullptr;
         }
 
-        this->parentScope = parentScope;
+        this->parentScopeTable = parentScopeTable;
 
         // generate id
         id = "";
-        if (parentScope != nullptr)
+        if (parentScopeTable != nullptr)
         {
-            parentScope->scopeCount++;
-            id = parentScope->id + "." + to_string(parentScope->scopeCount);
+            parentScopeTable->scopeCount++;
+            id = parentScopeTable->id + "." + to_string(parentScopeTable->scopeCount);
+            cout << "New ScopeTable with id "<<id<<" created"<<endl<<endl;
         }
         else
         {
-            id = "1";
+            id = "1"; // for 1st level scope table
         }
-        log(tag(tagMsg), id);
+        //log(tag(tagMsg), id, tableSize);
+    }
+
+    void resursiveFree(Symbolinfo *symbol)
+    {
+        if (symbol == nullptr)
+            return;
+        resursiveFree(symbol->getNext());
+        delete symbol;
     }
 
     /// destructor
     ~ScopeTable()
     {
-        delete parentScope;
-        for (int i = 0; i < total_bukets; i++)
+        // as table elements are pointers, we need to delete them individually
+        for (int i = 0; i < tableSize; i++)
         {
-            if (table[i] != nullptr)
-            {
-                delete table[i];
+            if(table[i]!=nullptr){
+                Symbolinfo *symbol = table[i];
+                while(symbol!=nullptr){
+                    Symbolinfo *temp = symbol;
+                    symbol = symbol->getNext();
+                    delete temp;
+                }
             }
         }
+
+        // finally delete the table pointer
         delete[] table;
+
+        //delete parentScopeTable;
+        //log(tag(tagMsg), "freed resources");
+    }
+
+    /// getter and setters
+    ScopeTable *getParentScopeTable()
+    {
+        //log(tag(tagMsg), parentScopeTable);
+        return parentScopeTable;
+    }
+
+    string getId()
+    {
+        return id;
     }
 
     /// scope table functions
@@ -112,34 +144,36 @@ public: // public constructor & funtions ===============================
      */
     bool insertSymbol(string name, string type)
     {
-        log(tag(tagMsg), name, type);
+        // log(tag(tagMsg), name, type);
         int idx = calculateHash(name);
 
         /// case-1: if the symbol is not present in the table
         if (table[idx] == nullptr)
         {
             table[idx] = new Symbolinfo(name, type);
+            //log(tag(tagMsg), table[idx], idx);
+            cout << "Inserted in ScopeTable # " << id << " at position " << idx << ", " << 0 << endl << endl;
             return true;
         }
 
         /// case-2: if the symbol is present in the table
-        Symbolinfo *temp = table[idx];
-        int position = 0;
+        Symbolinfo *symbolinfo = table[idx];
+        int position = 1;
         // go to the end of the list
-        while (temp->getNext() != nullptr)
+        while (symbolinfo->getNext() != nullptr)
         {
-            if (temp->getName() == name)
+            if (symbolinfo->getName() == name)
             {
-                cout << *temp << " already exist in ScopeTable # " << id << endl;
+                cout << *symbolinfo << " already exist in ScopeTable # " << id << endl <<endl;
                 return false; // symbol already exist
             }
             position++;
-            temp = temp->getNext();
+            symbolinfo = symbolinfo->getNext();
         }
 
         // insert new symbol at the end of the list
-        temp->setNext(new Symbolinfo(name, type));
-        cout << "Inserted in ScopeTable # " << id << " at position " << idx << ", " << position << endl;
+        symbolinfo->setNext(new Symbolinfo(name, type));
+        cout << "Inserted in ScopeTable # " << id << " at position " << idx << ", " << position << endl << endl;
 
         return true;
     }
@@ -154,7 +188,7 @@ public: // public constructor & funtions ===============================
      * @return Symbolinfo pointer on successful search
      * @return nullptr on failure
      */
-    Symbolinfo *lookUp(string symbolName)
+    Symbolinfo *lookupSymbol(string symbolName)
     {
         int idx = calculateHash(symbolName);
 
@@ -164,7 +198,7 @@ public: // public constructor & funtions ===============================
         {
             if (temp->getName() == symbolName)
             {
-                cout << "Found in ScopeTable# " << id << " at position " << idx << ", " << position << endl;
+                cout << "Found in ScopeTable# " << id << " at position " << idx << ", " << position << endl << endl;
                 return temp;
             }
             position++;
@@ -185,34 +219,34 @@ public: // public constructor & funtions ===============================
     {
         int idx = calculateHash(name);
 
-        Symbolinfo *temp = table[idx];
+        Symbolinfo *curr = table[idx];
         Symbolinfo *prev = nullptr;
 
         int position = 0; // position of the symbol in the idt th list
-        while (temp != nullptr)
+        while (curr != nullptr)
         {
-            if (temp->getName() == name)
+            if (curr->getName() == name)
             {
-                cout << "Found in ScopeTabl # " << id << " at position " << idx << ", " << position << endl
+                cout << "Found in ScopeTable # " << id << " at position " << idx << ", " << position << endl
                      << endl;
                 if (prev == nullptr) // first element
                 {
-                    table[idx] = temp->getNext();
+                    table[idx] = curr->getNext();
                 }
                 else
                 {
-                    prev->setNext(temp->getNext());
+                    prev->setNext(curr->getNext());
                 }
-                delete temp;
-                cout << "Deleted Entry " << idx << ", " << position << " from current ScopeTable" << endl;
+                delete curr; // free memory
+                cout << "Deleted Entry " << idx << ", " << position << " from current ScopeTable" << endl << endl;
                 return true; // deleted successfully
             }
-            prev = temp;
+            prev = curr;
             position++;
-            temp = temp->getNext();
+            curr = curr->getNext();
         }
 
-        cout << "Not found" << endl;
+        cout << "Not found" << endl<<endl;
         return false;
     }
 
@@ -222,7 +256,7 @@ public: // public constructor & funtions ===============================
     void print()
     {
         cout << "ScopeTable # " << id << endl;
-        for (int i = 0; i < total_bukets; i++)
+        for (int i = 0; i < tableSize; i++)
         {
             cout << i << " -->  ";
             Symbolinfo *temp = table[i];
@@ -233,5 +267,6 @@ public: // public constructor & funtions ===============================
             }
             cout << endl;
         }
+        cout << endl;
     }
 };

@@ -2,3 +2,6 @@
 **/*.exe
 **/*.o
 **/tempCodeRunnerFile.cpp
+**/*.out
+**/a
+**/1805052
