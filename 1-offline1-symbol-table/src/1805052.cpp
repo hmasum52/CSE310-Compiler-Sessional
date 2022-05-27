@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
 #include "symboltable.h"
+
 using namespace std;
 
 int main()
 {
-    //freopen("../sample-io/2-input.txt", "r", stdin);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
 
     char cmd, cmd2;
     string symbolName, type; // for INSERT

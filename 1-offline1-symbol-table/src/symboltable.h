@@ -5,12 +5,17 @@ using namespace std;
 
 /**
  * @brief This class implements a list of scope tables.
+ * This class is also a list implementation of stack.
  *
  */
 class SymbolTable
 {
     const string tagMsg = "SymbolTable::";
 
+    // list of scope tables
+    // this list mimics the stack of scope tables
+    // the top of the list is the current scope table
+    // push(insert) and pop(delete) are implemented using this list
     ScopeTable *currentScopeTable;
     int scopeTableSize;
 

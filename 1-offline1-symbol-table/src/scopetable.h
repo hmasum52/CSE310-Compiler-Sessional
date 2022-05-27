@@ -144,11 +144,12 @@ public: // public constructor & funtions ===============================
      */
     bool insertSymbol(string name, string type)
     {
+        cout<<"Inserting "<<name<<" in scope "<<id<<endl;
         // log(tag(tagMsg), name, type);
         int idx = calculateHash(name);
 
         /// case-1: if the symbol is not present in the table
-        if (table[idx] == nullptr)
+        if (table[idx] == nullptr) // curr == nullptr
         {
             table[idx] = new Symbolinfo(name, type);
             //log(tag(tagMsg), table[idx], idx);
@@ -157,22 +158,26 @@ public: // public constructor & funtions ===============================
         }
 
         /// case-2: if the symbol is present in the table
-        Symbolinfo *symbolinfo = table[idx];
+        Symbolinfo *curr = table[idx];
+        Symbolinfo *prev = nullptr;
         int position = 1;
         // go to the end of the list
-        while (symbolinfo->getNext() != nullptr)
+        while (curr != nullptr)
         {
-            if (symbolinfo->getName() == name)
+            //log(tag(tagMsg), curr, idx, position);
+            if (curr->getName() == name)
             {
-                cout << *symbolinfo << " already exist in ScopeTable # " << id << endl <<endl;
+                cout << *curr << " already exists in current ScopeTable" <<endl
+                     << endl;
                 return false; // symbol already exist
             }
             position++;
-            symbolinfo = symbolinfo->getNext();
-        }
+            prev = curr;
+            curr = curr->getNext();
+        } 
 
         // insert new symbol at the end of the list
-        symbolinfo->setNext(new Symbolinfo(name, type));
+        prev->setNext(new Symbolinfo(name, type));
         cout << "Inserted in ScopeTable # " << id << " at position " << idx << ", " << position << endl << endl;
 
         return true;
