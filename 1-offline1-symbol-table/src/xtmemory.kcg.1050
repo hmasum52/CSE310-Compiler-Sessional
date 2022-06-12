@@ -1,0 +1,409 @@
+# callgrind format
+version: 1
+creator: xtree-1
+pid: 1050
+cmd: ./1805052.out
+
+positions: line
+event: curB : currently allocated Bytes
+event: curBk : currently allocated Blocks
+event: totB : total allocated Bytes
+event: totBk : total allocated Blocks
+event: totFdB : total Freed Bytes
+event: totFdBk : total Freed Blocks
+events: curB  curBk  totB  totBk  totFdB  totFdBk 
+fl=(1) UnknownFile???
+fn=(1) UnknownFn???
+0
+cfi=(2) ./elf/./elf/dl-init.c
+cfn=(2) _dl_init
+calls=0 33
+0 0 0 72704 1 0 0
+fl=(2)
+fn=(2)
+33
+cfi=(2)
+cfn=(3) call_init.part.0
+calls=0 70
+33 0 0 72704 1 0 0
+fl=(2)
+fn=(3)
+70
+cfi=(1)
+cfn=(1)
+calls=0 0
+70 0 0 72704 1 0 0
+fl=(1)
+fn=(1)
+0 0 0 72704 1 0 0
+
+fl=(3) /mnt/g/level-3-term-1/CSE-310-Compilers-lab/CSE-310-Compiler-codes/1-offline1-symbol-table/src/1805052.cpp
+fn=(4) main
+15
+cfi=(1)
+cfn=(5) std::istream::operator>>(int&)
+calls=0 0
+15 0 0 4096 1 0 0
+fl=(1)
+fn=(5)
+0
+cfi=(1)
+cfn=(6) std::istream::sentry::sentry(std::istream&, bool)
+calls=0 0
+0 0 0 4096 1 0 0
+fl=(1)
+fn=(6)
+0
+cfi=(1)
+cfn=(7) __gnu_cxx::stdio_sync_filebuf<char, std::char_traits<char> >::underflow()
+calls=0 0
+0 0 0 4096 1 0 0
+fl=(1)
+fn=(7)
+0
+cfi=(4) ./libio/./libio/genops.c
+cfn=(8) _IO_default_uflow
+calls=0 362
+0 0 0 4096 1 0 0
+fl=(4)
+fn=(8)
+362
+cfi=(5) ./libio/./libio/fileops.c
+cfn=(9) _IO_file_underflow@@GLIBC_2.2.5
+calls=0 485
+362 0 0 4096 1 0 0
+fl=(5)
+fn=(9)
+485
+cfi=(4)
+cfn=(10) _IO_doallocbuf
+calls=0 347
+485 0 0 4096 1 0 0
+fl=(4)
+fn=(10)
+347
+cfi=(6) ./libio/./libio/filedoalloc.c
+cfn=(11) _IO_file_doallocate
+calls=0 101
+347 0 0 4096 1 0 0
+fl=(6)
+fn=(11)
+101 0 0 4096 1 0 0
+
+fl=(3)
+fn=(4)
+17
+cfi=(7) /mnt/g/level-3-term-1/CSE-310-Compilers-lab/CSE-310-Compiler-codes/1-offline1-symbol-table/src/symboltable.h
+cfn=(12) SymbolTable::SymbolTable(int)
+calls=0 26
+17 0 0 96 1 0 0
+fl=(7)
+fn=(12)
+26 0 0 96 1 0 0
+
+fl=(3)
+fn=(4)
+17
+cfi=(7)
+cfn=(12)
+calls=0 26
+17 0 0 56 1 0 0
+fl=(7)
+fn=(12)
+26
+cfi=(8) /mnt/g/level-3-term-1/CSE-310-Compilers-lab/CSE-310-Compiler-codes/1-offline1-symbol-table/src/scopetable.h
+cfn=(13) ScopeTable::ScopeTable(int, ScopeTable*)
+calls=0 65
+26 0 0 56 1 0 0
+fl=(8)
+fn=(13)
+65 0 0 56 1 0 0
+
+fl=(3)
+fn=(4)
+24
+cfi=(1)
+cfn=(14) std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char)
+calls=0 0
+24 0 0 4096 1 0 0
+fl=(1)
+fn=(14)
+0
+cfi=(1)
+cfn=(15) std::ostream::put(char)
+calls=0 0
+0 0 0 4096 1 0 0
+fl=(1)
+fn=(15)
+0
+cfi=(5)
+cfn=(16) _IO_file_overflow@@GLIBC_2.2.5
+calls=0 744
+0 0 0 4096 1 0 0
+fl=(5)
+fn=(16)
+744
+cfi=(4)
+cfn=(10)
+calls=0 347
+744 0 0 4096 1 0 0
+fl=(4)
+fn=(10)
+347
+cfi=(6)
+cfn=(11)
+calls=0 101
+347 0 0 4096 1 0 0
+fl=(6)
+fn=(11)
+101 0 0 4096 1 0 0
+
+fl=(3)
+fn=(4)
+25
+cfi=(7)
+cfn=(17) SymbolTable::insert(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+calls=0 91
+25 0 0 720 10 0 0
+fl=(7)
+fn=(17)
+91
+cfi=(8)
+cfn=(18) ScopeTable::insertSymbol(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+calls=0 154
+91 0 0 720 10 0 0
+fl=(8)
+fn=(18)
+154 0 0 720 10 0 0
+
+fl=(3)
+fn=(4)
+47
+cfi=(7)
+cfn=(19) SymbolTable::enterScope()
+calls=0 50
+47 0 0 672 7 0 0
+fl=(7)
+fn=(19)
+50 0 0 672 7 0 0
+
+fl=(3)
+fn=(4)
+47
+cfi=(7)
+cfn=(19)
+calls=0 50
+47 0 0 392 7 0 0
+fl=(7)
+fn=(19)
+50
+cfi=(8)
+cfn=(13)
+calls=0 65
+50 0 0 392 7 0 0
+fl=(8)
+fn=(13)
+65 0 0 392 7 0 0
+
+fl=(3)
+fn=(4)
+51
+cfi=(7)
+cfn=(20) SymbolTable::exitScope()
+calls=0 72
+51 0 0 0 0 432 6
+fl=(7)
+fn=(20)
+72
+cfi=(8)
+cfn=(21) ScopeTable::~ScopeTable()
+calls=0 109
+72 0 0 0 0 432 6
+fl=(8)
+fn=(21)
+109 0 0 0 0 432 6
+
+fl=(3)
+fn=(4)
+51
+cfi=(7)
+cfn=(20)
+calls=0 72
+51 0 0 0 0 336 6
+fl=(7)
+fn=(20)
+72
+cfi=(8)
+cfn=(21)
+calls=0 115
+72 0 0 0 0 336 6
+fl=(8)
+fn=(21)
+115 0 0 0 0 336 6
+
+fl=(3)
+fn=(4)
+51
+cfi=(7)
+cfn=(20)
+calls=0 72
+51 0 0 0 0 576 6
+fl=(7)
+fn=(20)
+72 0 0 0 0 576 6
+
+fl=(3)
+fn=(4)
+35
+cfi=(7)
+cfn=(22) SymbolTable::remove(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+calls=0 108
+35 0 0 0 0 144 2
+fl=(7)
+fn=(22)
+108
+cfi=(8)
+cfn=(23) ScopeTable::deleteSymbol(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+calls=0 245
+108 0 0 0 0 144 2
+fl=(8)
+fn=(23)
+245 0 0 0 0 144 2
+
+fl=(3)
+fn=(4)
+25
+cfi=(7)
+cfn=(17)
+calls=0 91
+25 0 0 72 1 0 0
+fl=(7)
+fn=(17)
+91
+cfi=(8)
+cfn=(18)
+calls=0 180
+91 0 0 72 1 0 0
+fl=(8)
+fn=(18)
+180 0 0 72 1 0 0
+
+fl=(3)
+fn=(4)
+58
+cfi=(7)
+cfn=(24) SymbolTable::~SymbolTable()
+calls=0 38
+58 0 0 0 0 216 3
+fl=(7)
+fn=(24)
+38
+cfi=(8)
+cfn=(21)
+calls=0 109
+38 0 0 0 0 216 3
+fl=(8)
+fn=(21)
+109 0 0 0 0 216 3
+
+fl=(3)
+fn=(4)
+58
+cfi=(7)
+cfn=(24)
+calls=0 38
+58 0 0 0 0 112 2
+fl=(7)
+fn=(24)
+38
+cfi=(8)
+cfn=(21)
+calls=0 115
+38 0 0 0 0 112 2
+fl=(8)
+fn=(21)
+115 0 0 0 0 112 2
+
+fl=(3)
+fn=(4)
+58
+cfi=(7)
+cfn=(24)
+calls=0 38
+58 0 0 0 0 192 2
+fl=(7)
+fn=(24)
+38 0 0 0 0 192 2
+
+fl=(9) ./csu/../sysdeps/nptl/libc_start_call_main.h
+fn=(25) (below main)
+74
+cfi=(10) ./stdlib/./stdlib/exit.c
+cfn=(26) exit
+calls=0 143
+74 0 0 0 0 72704 1
+fl=(10)
+fn=(26)
+143
+cfi=(10)
+cfn=(27) __run_exit_handlers
+calls=0 136
+143 0 0 0 0 72704 1
+fl=(10)
+fn=(27)
+136
+cfi=(1)
+cfn=(28) _vgnU_freeres
+calls=0 0
+136 0 0 0 0 72704 1
+fl=(1)
+fn=(28)
+0
+cfi=(1)
+cfn=(29) __gnu_cxx::__freeres()
+calls=0 0
+0 0 0 0 0 72704 1
+fl=(1)
+fn=(29)
+0 0 0 0 0 72704 1
+
+fl=(9)
+fn=(25)
+74
+cfi=(10)
+cfn=(26)
+calls=0 143
+74 0 0 0 0 8192 2
+fl=(10)
+fn=(26)
+143
+cfi=(10)
+cfn=(27)
+calls=0 136
+143 0 0 0 0 8192 2
+fl=(10)
+fn=(27)
+136
+cfi=(1)
+cfn=(28)
+calls=0 0
+136 0 0 0 0 8192 2
+fl=(1)
+fn=(28)
+0
+cfi=(1)
+cfn=(30) __libc_freeres
+calls=0 0
+0 0 0 0 0 8192 2
+fl=(1)
+fn=(30)
+0
+cfi=(1)
+cfn=(31) buffer_free
+calls=0 0
+0 0 0 0 0 8192 2
+fl=(1)
+fn=(31)
+0 0 0 0 0 8192 2
+
+totals: 0 0 82904 30 82904 30
