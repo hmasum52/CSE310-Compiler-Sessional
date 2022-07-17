@@ -1,7 +1,7 @@
 .vscode
-**/*.exe
-**/*.o
-**/tempCodeRunnerFile.cpp
-**/*.out
-**/a
-**/1805052
+*.exe
+*.o
+tempCodeRunnerFile.cpp
+*.out
+a
+1805052

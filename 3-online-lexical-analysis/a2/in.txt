@@ -1,0 +1,5 @@
+#define l long
+#define lli long long int
+#define NICE "nice"
+#define PI 3.1415
+#define num 3.48E20

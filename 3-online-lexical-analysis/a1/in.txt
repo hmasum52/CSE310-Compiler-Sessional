@@ -1,0 +1,5 @@
+Foo<Bar>
+Foo<Bar<Bazz>>
+Foo<Bar<Bazz> 
+Foo<Bar<
+Foo<Foo>

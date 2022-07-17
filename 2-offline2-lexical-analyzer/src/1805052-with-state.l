@@ -1,5 +1,8 @@
-%option noyywrap yylineno
+%option noyywrap 
 
+%x STRING 
+%x SINGLE_LINE_COMMENT
+%x MULTI_LINE_COMMENT
 
 /* ============ declarations ====================*/
 %{
@@ -25,17 +28,11 @@
         {'\"', "\""},
     };
 
-    int errorCnt = 0; // number of errors
+    string str; // string to be parsed
+    int strStartLine; // line number where the strig str starts
 
-    int countLines(string str){
-        int cnt = 0;
-        for(int i = 0; i < str.length(); i++){
-            if(str[i]=='\n'){
-                cnt++;
-            }
-        }
-        return cnt;
-    }
+    int lineCnt = 1; // line numbers
+    int errorCnt = 0; // number of errors
 
     void logPrint(int line, string token, string lexeme, bool newline=true){
         cout << "Line no " << line << ": Token <" << token << "> Lexeme " << lexeme << " found";
@@ -48,14 +45,14 @@
 
     // keyword will not be inserted in the symbol table
     void addKeyword(string keyword, string token){
-        logPrint(yylineno, token, keyword);
+        logPrint(lineCnt, token, keyword);
 
         // print the token
         tokenout << "<" << token << "> ";
     }
     // ===== Constants: CONST_INT, CONST_FLOAT, CONST_CHAR =======
     void addConstNumber(string number, string token){
-        logPrint(yylineno, token, number);
+        logPrint(lineCnt, token, number);
 
         printToken(token, number);
 
@@ -65,7 +62,7 @@
     }
 
     void addConstChar(string character, string token){
-        logPrint(yylineno, token, character, false);
+        logPrint(lineCnt, token, character, false);
         string ch = "";
         ch += character[1];
         cout<<" --> " <<  "<"<<token<<", "<<ch<<">" << endl<<endl;
@@ -78,7 +75,7 @@
     }
 
     void addConstEscapeChar(string escapeChar, string token){
-        logPrint(yylineno, token, escapeChar, false);
+        logPrint(lineCnt, token, escapeChar, false);
         string ch = escapeCharMap[escapeChar[2]];
         cout<<" --> " <<  "<"<<token<<", "<<ch<<">" << endl<<endl;
 
@@ -90,20 +87,20 @@
     }
     // operator will not be inserted in the symbol table
     void addOperator(string _operator, string token){
-        logPrint(yylineno, token, _operator);
+        logPrint(lineCnt, token, _operator);
 
         printToken(token, _operator);
     }
 
     // punctuator will not be inserted in the symbol table
     void addPunctuator(string punctuator, string token){
-        logPrint(yylineno, token, punctuator);
+        logPrint(lineCnt, token, punctuator);
 
         printToken(token, punctuator);
     }
 
     void addID(string id, string token){
-        logPrint(yylineno ,token, id);
+        logPrint(lineCnt ,token, id);
 
         printToken(token, id);
 
@@ -113,13 +110,10 @@
     }
     // string will not be inserted in the symbol table
     void addString(string str, string token){
-        int lineCnt = 0; // line cnt of the string
+        logPrint(strStartLine, token, str, false);
+        
         string str2 = "";
         for(int i = 0; i < str.length(); i++){
-            if(str[i]=='\n'){
-                lineCnt++;
-            }
-
             if(str[i] == '\\'){
                 str2 += escapeCharMap[str[i+1]];
                 i++;
@@ -128,9 +122,6 @@
                 str2 += str[i];
             }
         }
-
-        logPrint(yylineno-lineCnt, token, str, false);
-
         cout<< " --> "<< "<"<<token<<", "<<str2<<">" << endl<<endl;
 
         printToken(token, str2);
@@ -138,7 +129,7 @@
     // comment will not be inserted in the symbol table
     // also no token is generated for comment
     void addComment(string comment){
-        logPrint(yylineno-countLines(comment), "COMMENT", comment);
+        logPrint(strStartLine, "COMMENT", comment);
     }
 
     void error(int line, string symbol, string erorrMessage) {
@@ -160,6 +151,8 @@ EXPONENT [Ee][+-]?{DIGIT}+
 
 NEWLINE (\r)?\n
 
+CONST_INT [0-9]+
+
 CONST_FLOAT {DIGIT}*(\.{DIGIT}+)?{EXPONENT}?
 
 CONST_CHAR \'[^\\\n\r]\'
@@ -179,10 +172,10 @@ UNTERMINATED_CHAR_ERROR \'(.|\\\')?[^\'\r\n]*
 %%
    
 
-[ \t\v]+ {} /*ignore whitespaces */
+[ \t\v]+ {} /*ignore space*/
     
     /* platform independent new line */
-{NEWLINE} {}
+{NEWLINE} {lineCnt++;}
 
     /* ============== KEYWORDS ============== */
 if {addKeyword("if", "IF");}
@@ -203,13 +196,10 @@ default {addKeyword("default", "DEFAULT");}
 continue {addKeyword("continue", "CONTINUE");}
 
     /* ======== constants ============ */
-    
-    /* constant integers */
-{DIGIT}+ {
+{CONST_INT} {
     addConstNumber(yytext, "CONST_INT");
 }
 
-    /* constant floats */
 {CONST_FLOAT} {
     addConstNumber(yytext, "CONST_FLOAT"); 
 }
@@ -271,68 +261,136 @@ continue {addKeyword("continue", "CONTINUE");}
 }
     /* ============ STRING =============== */
 
-(\")(.|\\.|\\{NEWLINE})*(\") {
-    cout<<"line no: "<<yylineno<<endl;
-    addString(yytext, "STRING");
+    /* start of the string*/
+\" {
+    str = yytext;
+    strStartLine = lineCnt; // save the line number of the start of the string
+    //cout<<"String state started"<<endl;
+    BEGIN STRING;
+}
+    /* ignore multiline string line divider \ */
+<STRING>\\{NEWLINE} {
+    str += yytext;
+    lineCnt++;
+}
+    /* for " inside the string */
+<STRING>\\\" {
+    str += yytext;
+    //cout<<"ESCAPE CHAR inside string "<<yytext<<endl;
+} 
+    /* add char to string until end of string or line */
+<STRING>[^\"\n\r] {
+    str += yytext;
+    //cout<<str<<endl;
+}
+    /* end of the string */
+<STRING>\" {
+    str += yytext;
+    addString(str, "STRING");
+    //cout<<"String state ended"<<endl;
+    BEGIN INITIAL;
+}
+    /* error-7: unterminated string*/
+<STRING>{NEWLINE} {
+    error(strStartLine,str, "Unterminated String");
+    lineCnt++;
+    //cout<<"String state ended"<<endl;
+    BEGIN INITIAL;
 }
 
-(\")(.|\\.|\\{NEWLINE})* {
-    cout<<"line no: "<<yylineno<<endl;
-
-    int lineCnt = 0;
-    string str = yytext;
-    for(int i = 0; i < str.length(); i++){
-        if(str[i] == '\n'){
-            lineCnt++;
-        }
-    }
-    error(yylineno-lineCnt,yytext, "Unterminated String");
+    /* =============== SINGLE LINE COMMENT =============== */
+"//" {
+    str = yytext;
+    strStartLine = lineCnt; // save the line number of the start of the string
+    //cout<<"Single line comment start===="<<endl;
+    BEGIN SINGLE_LINE_COMMENT;
 }
 
-    /* single line comment */
-("//")(.|(\\{NEWLINE}))* {
-    addComment(yytext);
+<SINGLE_LINE_COMMENT>. {
+    str+=yytext;
+}
+
+<SINGLE_LINE_COMMENT>\\{NEWLINE} {
+    // ignore
+    str+=yytext;
+    //cout<<"found \\ in single line comment"<<endl;
+    lineCnt++;
+}
+
+<SINGLE_LINE_COMMENT>{NEWLINE} {
+    // ignore the new line
+    addComment(str);
+    lineCnt++;
+    //cout<<"Single line comment end====="<<endl;
+    BEGIN INITIAL;
+}
+
+    /* ========== MULTI LINE COMMENT ================ */
+"/*" {
+    str = yytext;
+    strStartLine = lineCnt; // save the line number of the start of the string
+    //cout<<"multiline comment started."<<endl;
+    BEGIN MULTI_LINE_COMMENT;
+}
+
+<MULTI_LINE_COMMENT>. {
+    str+=yytext;
+}
+
+
+<MULTI_LINE_COMMENT>{NEWLINE} {
+    // ignore
+    str += yytext;
+    lineCnt++;
+}
+
+
+<MULTI_LINE_COMMENT>"*/" {
+    //cout<<"multiline line comment end====="<<endl;
+    str += yytext;
+    addComment(str);
+    BEGIN INITIAL;
 } 
 
-    /* multiline comment */
-("/*")(.|{NEWLINE})*("*/") {
-    addComment(yytext);
-} 
-    /* multiline comment error */
-("/*")(.|{NEWLINE})* {
-    string str = yytext;
-    error(yylineno - countLines(str), str, "Unterminated Comment");
+    /* error-8: multiline comment error */
+<MULTI_LINE_COMMENT><<EOF>> {
+    lineCnt--;
+    error(strStartLine, str, "Unterminated Comment");
     symboltable.printAllScopeTables();
-}
+    cout<<"Total lines: "<<lineCnt<<endl;
+    cout<<"Total errors: "<<errorCnt<<endl;
+    return 0;
+}   
+
 
  /* ============= ERRORS ==================*/
 
     /* error1: too many demical points */
 {TOO_MANY_DEMICAL_POINTS_ERROR} {
-    error(yylineno,yytext, "Too many decimal points");
+    error(lineCnt,yytext, "Too many decimal points");
 }
     /* error2: ill formed number such as 1E10.7 */
 {ILL_FORMAT_NUMBER_ERROR} {
-    error(yylineno,yytext, "Ill formed number");
+    error(lineCnt,yytext, "Ill formed number");
 }
 
     /* error3: invalid suffix or prefix */
 {INVALID_SUFFIX_OR_PREFIX_ERROR} {
-    error(yylineno, yytext, "Invalid prefix on ID or invalid suffix on Number");
+    error(lineCnt, yytext, "Invalid prefix on ID or invalid suffix on Number");
 }
     /* error 4: multi character const error */
 {MULTI_CHAR_CONST_ERROR} {
-    error(yylineno, yytext, "Multi character constant error");
+    error(lineCnt, yytext, "Multi character constant error");
 }
 
     /* error 6: emtpy character error*/
 \'\' {
-    error(yylineno, yytext, "Empty character constant error");
+    error(lineCnt, yytext, "Empty character constant error");
 }
 
     /* error 5: unterminated character */
 {UNTERMINATED_CHAR_ERROR} {
-    error(yylineno, yytext, "Unterminated character");
+    error(lineCnt, yytext, "Unterminated character");
 }
 
    
@@ -340,14 +398,14 @@ continue {addKeyword("continue", "CONTINUE");}
 
 <<EOF>> {
     symboltable.printAllScopeTables();
-    cout<<"Total lines: "<<yylineno<<endl;
+    cout<<"Total lines: "<<lineCnt<<endl;
     cout<<"Total errors: "<<errorCnt<<endl;
     return 0;
 }
 
     /* if nothing match above.  match single charcter */
     /* error-9: Unrecognized character */
-. {error(yylineno, yytext, "Unrecognized character");} /* {} means no action */
+. {error(lineCnt, yytext, "Unrecognized character");} /* {} means no action */
 %%
 
 /* ========== main ============= */
@@ -368,7 +426,7 @@ int main(int argc,char *argv[]){
     // if we don't init the yyin, it will use stdin(console)
     yyin = fin;
 
-    yylineno = 1; // line number starts from 1
+    //yylineno = 1; // 
 
     // start scanning the file here
     yylex();
