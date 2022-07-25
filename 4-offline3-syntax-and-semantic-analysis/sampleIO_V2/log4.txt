@@ -22,9 +22,11 @@ Line 1: unit : var_declaration
 
 int x,y,z;
 
+
 Line 1: program : unit
 
 int x,y,z;
+
 
 Line 1: type_specifier : FLOAT
 
@@ -42,20 +44,22 @@ Line 1: unit : var_declaration
 
 float a;
 
+
 Line 1: program : program unit
 
 int x,y,z;
 float a;
 
-Line 3: type_specifier : INT
-
-int
 
 Line 3: type_specifier : INT
 
 int
 
-Line 3: parameter_list  : type_specifier ID
+Line 3: type_specifier : INT
+
+int
+
+Line 3: parameter_list : type_specifier ID
 
 int a
 
@@ -63,7 +67,7 @@ Line 3: type_specifier : INT
 
 int
 
-Line 3: parameter_list  : parameter_list COMMA type_specifier ID
+Line 3: parameter_list : parameter_list COMMA type_specifier ID
 
 int a,int b
 
@@ -71,9 +75,11 @@ Line 3: func_declaration : type_specifier ID LPAREN parameter_list RPAREN SEMICO
 
 int var(int a,int b);
 
+
 Line 3: unit : func_declaration
 
 int var(int a,int b);
+
 
 Line 3: program : program unit
 
@@ -81,15 +87,16 @@ int x,y,z;
 float a;
 int var(int a,int b);
 
-Line 5: type_specifier : INT
-
-int
 
 Line 5: type_specifier : INT
 
 int
 
-Line 5: parameter_list  : type_specifier ID
+Line 5: type_specifier : INT
+
+int
+
+Line 5: parameter_list : type_specifier ID
 
 int a
 
@@ -97,7 +104,7 @@ Line 5: type_specifier : INT
 
 int
 
-Line 5: parameter_list  : parameter_list COMMA type_specifier ID
+Line 5: parameter_list : parameter_list COMMA type_specifier ID
 
 int a,int b
 
@@ -105,9 +112,11 @@ Line 5: func_declaration : type_specifier ID LPAREN parameter_list RPAREN SEMICO
 
 int foo3(int a,int b);
 
+
 Line 5: unit : func_declaration
 
 int foo3(int a,int b);
+
 
 Line 5: program : program unit
 
@@ -116,15 +125,16 @@ float a;
 int var(int a,int b);
 int foo3(int a,int b);
 
-Line 7: type_specifier : INT
-
-int
 
 Line 7: type_specifier : INT
 
 int
 
-Line 7: parameter_list  : type_specifier ID
+Line 7: type_specifier : INT
+
+int
+
+Line 7: parameter_list : type_specifier ID
 
 int c
 
@@ -132,7 +142,7 @@ Line 7: type_specifier : INT
 
 int
 
-Line 7: parameter_list  : parameter_list COMMA type_specifier ID
+Line 7: parameter_list : parameter_list COMMA type_specifier ID
 
 int c,int d
 
@@ -160,7 +170,7 @@ Line 8: logic_expression : rel_expression
 
 7
 
-Line 8: expression : logic_expression
+Line 8: expression : logic expression
 
 7
 
@@ -168,9 +178,11 @@ Line 8: statement : RETURN expression SEMICOLON
 
 return 7;
 
+
 Line 8: statements : statement
 
 return 7;
+
 
 Line 9: compound_statement : LCURL statements RCURL
 
@@ -179,17 +191,23 @@ return 7;
 }
 
 
-ScopeTable # 1.1
- 9 --> < c : ID> 
- 10 --> < d : ID> 
+
+
+ScopeTable # 1.3
+ 9 --> < c , ID > 
+ 10 --> < d , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 14 --> < func : ID> 
- 15 --> < foo3 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 15 --> < foo3 , ID >
+ 29 --> < var , ID >
+
 
 Line 9: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -205,6 +223,7 @@ return 7;
 }
 
 
+
 Line 9: program : program unit
 
 int x,y,z;
@@ -216,15 +235,16 @@ return 7;
 }
 
 
-Line 11: type_specifier : INT
-
-int
 
 Line 11: type_specifier : INT
 
 int
 
-Line 11: parameter_list  : type_specifier ID
+Line 11: type_specifier : INT
+
+int
+
+Line 11: parameter_list : type_specifier ID
 
 int a
 
@@ -232,7 +252,7 @@ Line 11: type_specifier : FLOAT
 
 float
 
-Line 11: parameter_list  : parameter_list COMMA type_specifier ID
+Line 11: parameter_list : parameter_list COMMA type_specifier ID
 
 int a,float b
 
@@ -280,7 +300,7 @@ Line 12: logic_expression : rel_expression
 
 a+3
 
-Line 12: expression : logic_expression
+Line 12: expression : logic expression
 
 a+3
 
@@ -288,9 +308,11 @@ Line 12: statement : RETURN expression SEMICOLON
 
 return a+3;
 
+
 Line 12: statements : statement
 
 return a+3;
+
 
 Line 13: compound_statement : LCURL statements RCURL
 
@@ -299,18 +321,24 @@ return a+3;
 }
 
 
-ScopeTable # 1.2
- 7 --> < a : ID> 
- 8 --> < b : ID> 
+
+
+ScopeTable # 1.4
+ 7 --> < a , ID > 
+ 8 --> < b , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> 
- 15 --> < foo3 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 15 --> < foo3 , ID >
+ 29 --> < var , ID >
+
 
 Line 13: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -324,6 +352,7 @@ Line 13: unit : func_definition
 int correct_foo(int a,float b){
 return a+3;
 }
+
 
 
 Line 13: program : program unit
@@ -341,6 +370,7 @@ return a+3;
 }
 
 
+
 Line 16: type_specifier : VOID
 
 void
@@ -349,7 +379,7 @@ Line 16: type_specifier : INT
 
 int
 
-Line 16: parameter_list  : type_specifier ID
+Line 16: parameter_list : type_specifier ID
 
 int a
 
@@ -393,9 +423,11 @@ Line 17: statement : expression_statement
 
 y=6;
 
+
 Line 17: statements : statement
 
 y=6;
+
 
 Line 18: compound_statement : LCURL statements RCURL
 
@@ -404,17 +436,24 @@ y=6;
 }
 
 
-ScopeTable # 1.3
- 7 --> < a : ID> 
+
+
+ScopeTable # 1.5
+ 7 --> < a , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> 
- 15 --> < foo3 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 15 --> < foo3 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
+
 
 Line 18: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -428,6 +467,7 @@ Line 18: unit : func_definition
 void foo(int a){
 y=6;
 }
+
 
 
 Line 18: program : program unit
@@ -449,15 +489,16 @@ y=6;
 }
 
 
-Line 20: type_specifier : INT
-
-int
 
 Line 20: type_specifier : INT
 
 int
 
-Line 20: parameter_list  : type_specifier ID
+Line 20: type_specifier : INT
+
+int
+
+Line 20: parameter_list : type_specifier ID
 
 int a
 
@@ -465,7 +506,9 @@ Line 20: type_specifier : INT
 
 int
 
-Line 20: parameter_list  : parameter_list COMMA type_specifier ID
+Error at line 20: Multiple declaration of a in parameter
+
+Line 20: parameter_list : parameter_list COMMA type_specifier ID
 
 int a,int a
 
@@ -473,13 +516,9 @@ Line 20: type_specifier : FLOAT
 
 float
 
-Line 20: parameter_list  : parameter_list COMMA type_specifier ID
+Line 20: parameter_list : parameter_list COMMA type_specifier ID
 
 int a,int a,float b
-
-a already exists in current ScopeTable
-
-Error at line 20: Multiple declaration of a in parameter
 
 Line 21: variable : ID
 
@@ -525,7 +564,7 @@ Line 21: logic_expression : rel_expression
 
 a+2
 
-Line 21: expression : logic_expression
+Line 21: expression : logic expression
 
 a+2
 
@@ -533,9 +572,11 @@ Line 21: statement : RETURN expression SEMICOLON
 
 return a+2;
 
+
 Line 21: statements : statement
 
 return a+2;
+
 
 Line 22: compound_statement : LCURL statements RCURL
 
@@ -544,18 +585,26 @@ return a+2;
 }
 
 
-ScopeTable # 1.4
- 7 --> < a : ID> 
- 8 --> < b : ID> 
+
+
+ScopeTable # 1.6
+ 7 --> < a , ID > 
+ 8 --> < b , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> < foo2 : ID> 
- 15 --> < foo3 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 14 --> < foo2 , ID >
+ 15 --> < foo3 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
+
 
 Line 22: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -569,6 +618,7 @@ Line 22: unit : func_definition
 int foo2(int a,int a,float b){
 return a+2;
 }
+
 
 
 Line 22: program : program unit
@@ -594,6 +644,7 @@ return a+2;
 }
 
 
+
 Line 24: type_specifier : VOID
 
 void
@@ -602,7 +653,7 @@ Line 24: type_specifier : INT
 
 int
 
-Line 24: parameter_list  : type_specifier ID
+Line 24: parameter_list : type_specifier ID
 
 int a
 
@@ -610,7 +661,7 @@ Line 24: type_specifier : INT
 
 int
 
-Line 24: parameter_list  : parameter_list COMMA type_specifier ID
+Line 24: parameter_list : parameter_list COMMA type_specifier ID
 
 int a,int b
 
@@ -656,9 +707,11 @@ Line 25: statement : expression_statement
 
 y=7;
 
+
 Line 25: statements : statement
 
 y=7;
+
 
 Line 26: compound_statement : LCURL statements RCURL
 
@@ -667,18 +720,26 @@ y=7;
 }
 
 
-ScopeTable # 1.5
- 7 --> < a : ID> 
- 8 --> < b : ID> 
+
+
+ScopeTable # 1.7
+ 7 --> < a , ID > 
+ 8 --> < b , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> < foo2 : ID> 
- 15 --> < foo3 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 14 --> < foo2 , ID >
+ 15 --> < foo3 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
+
 
 Line 26: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -692,6 +753,7 @@ Line 26: unit : func_definition
 void foo3(int a,int b){
 y=7;
 }
+
 
 
 Line 26: program : program unit
@@ -721,19 +783,20 @@ y=7;
 }
 
 
-Line 28: type_specifier : INT
-
-int
 
 Line 28: type_specifier : INT
 
 int
 
-Line 28: parameter_list  : type_specifier ID
+Line 28: type_specifier : INT
+
+int
+
+Line 28: parameter_list : type_specifier ID
 
 int d
 
-Error at line 28:  Multiple declaration of z
+Error at line 28: Multiple declaration of z
 
 Line 29: variable : ID
 
@@ -763,7 +826,7 @@ Line 29: logic_expression : rel_expression
 
 d
 
-Line 29: expression : logic_expression
+Line 29: expression : logic expression
 
 d
 
@@ -771,9 +834,11 @@ Line 29: statement : RETURN expression SEMICOLON
 
 return d;
 
+
 Line 29: statements : statement
 
 return d;
+
 
 Line 30: compound_statement : LCURL statements RCURL
 
@@ -782,17 +847,25 @@ return d;
 }
 
 
-ScopeTable # 1.6
- 10 --> < d : ID> 
+
+
+ScopeTable # 1.8
+ 10 --> < d , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> < foo2 : ID> 
- 15 --> < foo3 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 14 --> < foo2 , ID >
+ 15 --> < foo3 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
+
 
 Line 30: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -806,6 +879,7 @@ Line 30: unit : func_definition
 int z(int d){
 return d;
 }
+
 
 
 Line 30: program : program unit
@@ -839,19 +913,20 @@ return d;
 }
 
 
-Line 32: type_specifier : INT
-
-int
 
 Line 32: type_specifier : INT
 
 int
 
-Line 32: parameter_list  : type_specifier ID
+Line 32: type_specifier : INT
+
+int
+
+Line 32: parameter_list : type_specifier ID
 
 int a
 
-Error at line 32: Number of arguments doesn't match prototype of the function var
+Error at line 32: Total number of arguments mismatch with declaration in function var
 
 Line 33: variable : ID
 
@@ -881,7 +956,7 @@ Line 33: logic_expression : rel_expression
 
 a
 
-Line 33: expression : logic_expression
+Line 33: expression : logic expression
 
 a
 
@@ -889,9 +964,11 @@ Line 33: statement : RETURN expression SEMICOLON
 
 return a;
 
+
 Line 33: statements : statement
 
 return a;
+
 
 Line 34: compound_statement : LCURL statements RCURL
 
@@ -900,17 +977,25 @@ return a;
 }
 
 
-ScopeTable # 1.7
- 7 --> < a : ID> 
+
+
+ScopeTable # 1.9
+ 7 --> < a , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> < foo2 : ID> 
- 15 --> < foo3 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 14 --> < foo2 , ID >
+ 15 --> < foo3 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
+
 
 Line 34: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -924,6 +1009,7 @@ Line 34: unit : func_definition
 int var(int a){
 return a;
 }
+
 
 
 Line 34: program : program unit
@@ -961,6 +1047,7 @@ return a;
 }
 
 
+
 Line 36: type_specifier : VOID
 
 void
@@ -969,7 +1056,7 @@ Line 36: type_specifier : INT
 
 int
 
-Line 36: parameter_list  : type_specifier ID
+Line 36: parameter_list : type_specifier ID
 
 int a
 
@@ -1017,7 +1104,7 @@ Line 37: logic_expression : rel_expression
 
 a+3
 
-Line 37: expression : logic_expression
+Line 37: expression : logic expression
 
 a+3
 
@@ -1025,9 +1112,11 @@ Line 37: statement : RETURN expression SEMICOLON
 
 return a+3;
 
+
 Line 37: statements : statement
 
 return a+3;
+
 
 Line 38: compound_statement : LCURL statements RCURL
 
@@ -1036,18 +1125,26 @@ return a+3;
 }
 
 
-ScopeTable # 1.8
- 7 --> < a : ID> 
+
+
+ScopeTable # 1.10
+ 7 --> < a , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> < foo2 : ID> 
- 15 --> < foo3 : ID> 
- 16 --> < foo4 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > 
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 14 --> < foo2 , ID >
+ 15 --> < foo3 , ID >
+ 16 --> < foo4 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
+
 
 Line 38: func_definition : type_specifier ID LPAREN parameter_list RPAREN compound_statement
 
@@ -1061,6 +1158,7 @@ Line 38: unit : func_definition
 void foo4(int a){
 return a+3;
 }
+
 
 
 Line 38: program : program unit
@@ -1102,6 +1200,7 @@ return a+3;
 }
 
 
+
 Line 40: type_specifier : INT
 
 int
@@ -1138,9 +1237,11 @@ Line 41: statement : var_declaration
 
 int a,b,c[4],dd,ee;
 
+
 Line 41: statements : statement
 
 int a,b,c[4],dd,ee;
+
 
 Line 42: type_specifier : VOID
 
@@ -1152,26 +1253,32 @@ e
 
 Line 42: var_declaration : type_specifier declaration_list SEMICOLON
 
-void e;
-
 Error at line 42: Variable type cannot be void
+
+void e;
 
 Line 42: statement : var_declaration
 
 void e;
+
 
 Line 42: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 
+
 Line 43: type_specifier : FLOAT
 
 float
 
+Error at line 43: Multiple declaration of a
+
 Line 43: declaration_list : ID
 
 a
+
+Error at line 43: Multiple declaration of c
 
 Line 43: declaration_list : declaration_list COMMA ID LTHIRD CONST_INT RTHIRD
 
@@ -1181,17 +1288,10 @@ Line 43: var_declaration : type_specifier declaration_list SEMICOLON
 
 float a,c[7];
 
-a already exists in current ScopeTable
-
-Error at line 43: Multiple declaration of a
-
-c already exists in current ScopeTable
-
-Error at line 43: Multiple declaration of c
-
 Line 43: statement : var_declaration
 
 float a,c[7];
+
 
 Line 43: statements : statements statement
 
@@ -1199,112 +1299,113 @@ int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
 
+
 Line 45: factor : CONST_FLOAT
 
-2.5
+2.50
 
 Line 45: unary_expression : factor
 
-2.5
+2.50
 
 Line 45: term : unary_expression
 
-2.5
+2.50
 
 Line 45: simple_expression : term
 
-2.5
+2.50
 
 Line 45: rel_expression : simple_expression
 
-2.5
+2.50
 
 Line 45: logic_expression : rel_expression
 
-2.5
+2.50
 
 Line 45: arguments : logic_expression
 
-2.5
+2.50
 
 Line 45: factor : CONST_FLOAT
 
-3.5
+3.50
 
 Line 45: unary_expression : factor
 
-3.5
+3.50
 
 Line 45: term : unary_expression
 
-3.5
+3.50
 
 Line 45: simple_expression : term
 
-3.5
+3.50
 
 Line 45: rel_expression : simple_expression
 
-3.5
+3.50
 
 Line 45: logic_expression : rel_expression
 
-3.5
+3.50
 
 Line 45: arguments : arguments COMMA logic_expression
 
-2.5,3.5
+2.50,3.50
 
 Line 45: argument_list : arguments
 
-2.5,3.5
+2.50,3.50
 
 Line 45: factor : ID LPAREN argument_list RPAREN
 
-func(2.5,3.5)
-
 Error at line 45: 1th argument mismatch in function func
 
-debug: Line 45: func(2.5,3.5) : int
+func(2.50,3.50)
 
 Line 45: unary_expression : factor
 
-func(2.5,3.5)
+func(2.50,3.50)
 
 Line 45: term : unary_expression
 
-func(2.5,3.5)
+func(2.50,3.50)
 
 Line 45: simple_expression : term
 
-func(2.5,3.5)
+func(2.50,3.50)
 
 Line 45: rel_expression : simple_expression
 
-func(2.5,3.5)
+func(2.50,3.50)
 
 Line 45: logic_expression : rel_expression
 
-func(2.5,3.5)
+func(2.50,3.50)
 
-Line 45: expression : logic_expression
+Line 45: expression : logic expression
 
-func(2.5,3.5)
+func(2.50,3.50)
 
 Line 45: expression_statement : expression SEMICOLON
 
-func(2.5,3.5);
+func(2.50,3.50);
 
 Line 45: statement : expression_statement
 
-func(2.5,3.5);
+func(2.50,3.50);
+
 
 Line 45: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
+
 
 Line 48: variable : ID
 
@@ -1344,9 +1445,9 @@ a
 
 Line 48: variable : ID
 
-c
-
 Error at line 48: Type mismatch, c is an array
+
+c
 
 Line 48: factor : variable
 
@@ -1384,10 +1485,6 @@ Line 48: factor : ID LPAREN argument_list RPAREN
 
 correct_foo(a,c)
 
-Error at line 48: 2th argument mismatch in function correct_foo
-
-debug: Line 48: correct_foo(a,c) : int
-
 Line 48: unary_expression : factor
 
 correct_foo(a,c)
@@ -1420,13 +1517,15 @@ Line 48: statement : expression_statement
 
 a=correct_foo(a,c);
 
+
 Line 48: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
+
 
 Line 49: variable : ID
 
@@ -1470,11 +1569,9 @@ a
 
 Line 49: factor : ID LPAREN argument_list RPAREN
 
-correct_foo(a)
-
 Error at line 49: Total number of arguments mismatch in function correct_foo
 
-debug: Line 49: correct_foo(a) : int
+correct_foo(a)
 
 Line 49: unary_expression : factor
 
@@ -1508,20 +1605,22 @@ Line 49: statement : expression_statement
 
 b=correct_foo(a);
 
+
 Line 49: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 
+
 Line 51: variable : ID
 
-k
-
 Error at line 51: Undeclared variable k
+
+k
 
 Line 51: factor : CONST_INT
 
@@ -1575,15 +1674,17 @@ Line 51: statement : expression_statement
 
 k=5+2;
 
+
 Line 51: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
+
 
 Line 52: factor : CONST_INT
 
@@ -1609,15 +1710,15 @@ Line 52: logic_expression : rel_expression
 
 5
 
-Line 52: expression : logic_expression
+Line 52: expression : logic expression
 
 5
 
 Line 52: variable : ID LTHIRD expression RTHIRD
 
-b[5]
+Error at line 52: b not an array
 
-Error at line 52: b is not an array.
+b[5]
 
 Line 52: factor : CONST_INT
 
@@ -1655,50 +1756,52 @@ Line 52: statement : expression_statement
 
 b[5]=7;
 
+
 Line 52: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
 
+
 Line 53: factor : CONST_FLOAT
 
-2.5
+2.50
 
 Line 53: unary_expression : factor
 
-2.5
+2.50
 
 Line 53: term : unary_expression
 
-2.5
+2.50
 
 Line 53: simple_expression : term
 
-2.5
+2.50
 
 Line 53: rel_expression : simple_expression
 
-2.5
+2.50
 
 Line 53: logic_expression : rel_expression
 
-2.5
+2.50
 
-Line 53: expression : logic_expression
+Line 53: expression : logic expression
 
-2.5
+2.50
 
 Line 53: variable : ID LTHIRD expression RTHIRD
 
-c[2.5]
-
 Error at line 53: Expression inside third brackets not an integer
+
+c[2.50]
 
 Line 53: factor : CONST_INT
 
@@ -1726,27 +1829,29 @@ Line 53: logic_expression : rel_expression
 
 Line 53: expression : variable ASSIGNOP logic_expression
 
-c[2.5]=8
+c[2.50]=8
 
 Line 53: expression_statement : expression SEMICOLON
 
-c[2.5]=8;
+c[2.50]=8;
 
 Line 53: statement : expression_statement
 
-c[2.5]=8;
+c[2.50]=8;
+
 
 Line 53: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
+
 
 Line 54: factor : CONST_INT
 
@@ -1772,7 +1877,7 @@ Line 54: logic_expression : rel_expression
 
 0
 
-Line 54: expression : logic_expression
+Line 54: expression : logic expression
 
 0
 
@@ -1844,17 +1949,15 @@ Line 54: factor : ID LPAREN argument_list RPAREN
 
 foo4(7)
 
-debug: Line 54: foo4(7) : void
-
 Line 54: unary_expression : factor
 
 foo4(7)
 
 Line 54: term : term MULOP unary_expression
 
-5*foo4(7)
-
 Error at line 54: Void function used in expression
+
+5*foo4(7)
 
 Line 54: simple_expression : simple_expression ADDOP term
 
@@ -1880,18 +1983,20 @@ Line 54: statement : expression_statement
 
 c[0]=2+5*foo4(7);
 
+
 Line 54: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
+
 
 Line 55: factor : CONST_INT
 
@@ -1917,7 +2022,7 @@ Line 55: logic_expression : rel_expression
 
 1
 
-Line 55: expression : logic_expression
+Line 55: expression : logic expression
 
 1
 
@@ -1961,19 +2066,21 @@ Line 55: statement : expression_statement
 
 c[1]=5;
 
+
 Line 55: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
+
 
 Line 56: factor : CONST_INT
 
@@ -1999,7 +2106,7 @@ Line 56: logic_expression : rel_expression
 
 1
 
-Line 56: expression : logic_expression
+Line 56: expression : logic expression
 
 1
 
@@ -2043,8 +2150,6 @@ Line 56: factor : ID LPAREN argument_list RPAREN
 
 foo4(c[1])
 
-debug: Line 56: foo4(c[1]) : void
-
 Line 56: unary_expression : factor
 
 foo4(c[1])
@@ -2065,7 +2170,7 @@ Line 56: logic_expression : rel_expression
 
 foo4(c[1])
 
-Line 56: expression : logic_expression
+Line 56: expression : logic expression
 
 foo4(c[1])
 
@@ -2077,20 +2182,22 @@ Line 56: statement : expression_statement
 
 foo4(c[1]);
 
+
 Line 56: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
+
 
 Line 57: factor : CONST_INT
 
@@ -2116,7 +2223,7 @@ Line 57: logic_expression : rel_expression
 
 2
 
-Line 57: expression : logic_expression
+Line 57: expression : logic expression
 
 2
 
@@ -2148,7 +2255,7 @@ Line 57: logic_expression : rel_expression
 
 1
 
-Line 57: expression : logic_expression
+Line 57: expression : logic expression
 
 1
 
@@ -2192,8 +2299,6 @@ Line 57: factor : ID LPAREN argument_list RPAREN
 
 foo4(c[1])
 
-debug: Line 57: foo4(c[1]) : void
-
 Line 57: unary_expression : factor
 
 foo4(c[1])
@@ -2216,9 +2321,9 @@ foo4(c[1])
 
 Line 57: expression : variable ASSIGNOP logic_expression
 
-c[2]=foo4(c[1])
-
 Error at line 57: Void function used in expression
+
+c[2]=foo4(c[1])
 
 Line 57: expression_statement : expression SEMICOLON
 
@@ -2228,21 +2333,23 @@ Line 57: statement : expression_statement
 
 c[2]=foo4(c[1]);
 
+
 Line 57: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
+
 
 Line 58: factor : CONST_INT
 
@@ -2268,7 +2375,7 @@ Line 58: logic_expression : rel_expression
 
 3
 
-Line 58: expression : logic_expression
+Line 58: expression : logic expression
 
 3
 
@@ -2278,56 +2385,60 @@ c[3]
 
 Line 58: factor : CONST_FLOAT
 
-2.7
+2.70
 
 Line 58: unary_expression : factor
 
-2.7
+2.70
 
 Line 58: term : unary_expression
 
-2.7
+2.70
 
 Line 58: simple_expression : term
 
-2.7
+2.70
 
 Line 58: rel_expression : simple_expression
 
-2.7
+2.70
 
 Line 58: logic_expression : rel_expression
 
-2.7
+2.70
 
 Line 58: expression : variable ASSIGNOP logic_expression
 
-c[3]=2.7
+Error at line 58: Type Mismatch
+
+c[3]=2.70
 
 Line 58: expression_statement : expression SEMICOLON
 
-c[3]=2.7;
+c[3]=2.70;
 
 Line 58: statement : expression_statement
 
-c[3]=2.7;
+c[3]=2.70;
+
 
 Line 58: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
+
 
 Line 59: variable : ID
 
@@ -2355,9 +2466,9 @@ Line 59: unary_expression : factor
 
 Line 59: term : term MULOP unary_expression
 
-5%0
-
 Error at line 59: Modulus by Zero
+
+5%0
 
 Line 59: simple_expression : term
 
@@ -2383,23 +2494,25 @@ Line 59: statement : expression_statement
 
 b=5%0;
 
+
 Line 59: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
+
 
 Line 60: variable : ID
 
@@ -2419,60 +2532,62 @@ Line 60: term : unary_expression
 
 Line 60: factor : CONST_FLOAT
 
-3.5
+3.50
 
 Line 60: unary_expression : factor
 
-3.5
+3.50
 
 Line 60: term : term MULOP unary_expression
 
-2%3.5
-
 Error at line 60: Non-Integer operand on modulus operator
+
+2%3.50
 
 Line 60: simple_expression : term
 
-2%3.5
+2%3.50
 
 Line 60: rel_expression : simple_expression
 
-2%3.5
+2%3.50
 
 Line 60: logic_expression : rel_expression
 
-2%3.5
+2%3.50
 
 Line 60: expression : variable ASSIGNOP logic_expression
 
-b=2%3.5
+b=2%3.50
 
 Line 60: expression_statement : expression SEMICOLON
 
-b=2%3.5;
+b=2%3.50;
 
 Line 60: statement : expression_statement
 
-b=2%3.5;
+b=2%3.50;
+
 
 Line 60: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
+
 
 Line 62: variable : ID
 
@@ -2516,11 +2631,9 @@ a
 
 Line 62: factor : ID LPAREN argument_list RPAREN
 
+Error at line 62: Undeclared function foo5
+
 foo5(a)
-
-Error at line 62: Undeclared Function foo5
-
-debug: Line 62: foo5(a) : 
 
 Line 62: unary_expression : factor
 
@@ -2554,52 +2667,56 @@ Line 62: statement : expression_statement
 
 dd=foo5(a);
 
+
 Line 62: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
 dd=foo5(a);
+
 
 Line 67: statement : PRINTLN LPAREN ID RPAREN SEMICOLON
 
+Error at line 67: Undeclared variable h
+
 printf(h);
 
-Error at line 67: Undeclared variable  h
 
 Line 67: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
 dd=foo5(a);
 printf(h);
+
 
 Line 68: factor : CONST_INT
 
@@ -2625,7 +2742,7 @@ Line 68: logic_expression : rel_expression
 
 0
 
-Line 68: expression : logic_expression
+Line 68: expression : logic expression
 
 0
 
@@ -2633,27 +2750,29 @@ Line 68: statement : RETURN expression SEMICOLON
 
 return 0;
 
+
 Line 68: statements : statements statement
 
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
 dd=foo5(a);
 printf(h);
 return 0;
+
 
 Line 71: compound_statement : LCURL statements RCURL
 
@@ -2661,41 +2780,49 @@ Line 71: compound_statement : LCURL statements RCURL
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
 dd=foo5(a);
 printf(h);
 return 0;
 }
 
 
-ScopeTable # 1.9
- 7 --> < a : ID> 
- 8 --> < b : ID> 
- 9 --> < c : ID> 
- 10 --> < ee : ID> 
- 20 --> < dd : ID> 
+
+
+ScopeTable # 1.11
+ 7 --> < a , ID > 
+ 8 --> < b , ID > 
+ 9 --> < c , ID > 
+ 20 --> < dd , ID > 
+ 22 --> < ee , ID > 
+
+
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> < main : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> < foo2 : ID> 
- 15 --> < foo3 : ID> 
- 16 --> < foo4 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > < main , ID >
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 14 --> < foo2 , ID >
+ 15 --> < foo3 , ID >
+ 16 --> < foo4 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
+
 
 Line 71: func_definition : type_specifier ID LPAREN RPAREN compound_statement
 
@@ -2703,19 +2830,19 @@ int main(){
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
 dd=foo5(a);
 printf(h);
 return 0;
@@ -2728,23 +2855,24 @@ int main(){
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
 dd=foo5(a);
 printf(h);
 return 0;
 }
+
 
 
 Line 71: program : program unit
@@ -2789,38 +2917,44 @@ int main(){
 int a,b,c[4],dd,ee;
 void e;
 float a,c[7];
-func(2.5,3.5);
+func(2.50,3.50);
 a=correct_foo(a,c);
 b=correct_foo(a);
 k=5+2;
 b[5]=7;
-c[2.5]=8;
+c[2.50]=8;
 c[0]=2+5*foo4(7);
 c[1]=5;
 foo4(c[1]);
 c[2]=foo4(c[1]);
-c[3]=2.7;
+c[3]=2.70;
 b=5%0;
-b=2%3.5;
+b=2%3.50;
 dd=foo5(a);
 printf(h);
 return 0;
 }
 
 
-Line 72: start : program
+
+Line 71: start : program
 
 
 
 ScopeTable # 1
- 0 --> < x : ID> < foo : ID> 
- 1 --> < y : ID> 
- 2 --> < z : ID> 
- 7 --> < a : ID> < var : ID> < main : ID> 
- 9 --> < correct_foo : ID> 
- 14 --> < func : ID> < foo2 : ID> 
- 15 --> < foo3 : ID> 
- 16 --> < foo4 : ID> 
+ 0 --> < x , ID > 
+ 1 --> < y , ID > < main , ID >
+ 2 --> < z , ID > 
+ 3 --> < correct_foo , ID >
+ 7 --> < a , ID > 
+ 8 --> < func , ID >
+ 14 --> < foo2 , ID >
+ 15 --> < foo3 , ID >
+ 16 --> < foo4 , ID >
+ 24 --> < foo , ID >
+ 29 --> < var , ID >
 
-Total Lines: 72
-Total Errors: 20
+
+Total lines: 71
+Total errors: 20
+
