@@ -49,7 +49,6 @@
     // keyword will not be inserted in the symbol table
     void addKeyword(string keyword, string token){
         logPrint(yylineno, token, keyword);
-
         // print the token
         tokenout << "<" << token << "> ";
     }
@@ -91,20 +90,17 @@
     // operator will not be inserted in the symbol table
     void addOperator(string _operator, string token){
         logPrint(yylineno, token, _operator);
-
         printToken(token, _operator);
     }
 
     // punctuator will not be inserted in the symbol table
     void addPunctuator(string punctuator, string token){
         logPrint(yylineno, token, punctuator);
-
         printToken(token, punctuator);
     }
 
     void addID(string id, string token){
         logPrint(yylineno ,token, id);
-
         printToken(token, id);
 
         if(symboltable.insert(id, token)){

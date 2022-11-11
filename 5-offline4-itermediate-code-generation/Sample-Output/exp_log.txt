@@ -1,0 +1,34 @@
+Line 3: variable : ID
+
+a
+
+Line 4: variable : ID
+
+b
+
+Line 6: variable : ID
+
+a
+
+Line 6: variable : ID
+
+b
+
+Line 10: variable : ID
+
+a
+
+Line 11: variable : ID
+
+b
+
+
+ScopeTable # 1.1
+ 7 --> < a , ID >
+ 8 --> < b , ID >
+ 9 --> < c , ID >
+
+ScopeTable # 1
+ 1 --> < main , ID >
+
+

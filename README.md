@@ -19,3 +19,6 @@ sudo apt-get install flex
 sudo apt-get update
 sudo apt-get install bison
 ```
+
+## Assigment 4: Intermeadiate Code Generation
+

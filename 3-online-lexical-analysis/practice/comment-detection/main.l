@@ -12,28 +12,15 @@ letter [a-zA-Z]
 newline (\r)?\n
 
 
+
 %%
 [ \t\v]+ {} 
 
 {newline} {}
 
-    /* single line comment */
-("//")(.|(\\{newline}))* {
-    cout<<"single line comment"<<endl;
-    cout<<yytext<<endl<<endl;
-} 
-
-    /* multiline comment */
-("/*")(.|{newline})*("*/") {
-    cout<<"multiline comment"<<endl;
-    cout<<yytext<<endl<<endl;
-} 
-
-("/*")(.|{newline})* {
-    cout<<"error: unfinished multiline comment"<<endl;
-    cout<<yytext<<endl<<endl;
-} 
-
+(.?[A-Z].?[0-9].?[~!@#$%^].?)+ {
+    cout<<"password: "<<yytext<<endl;
+}
 . {} //ignore
 
 

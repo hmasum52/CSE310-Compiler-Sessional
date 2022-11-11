@@ -39,6 +39,9 @@ void error(int line, string symbol, string erorrMessage) {
   cout << "Error at line no " << line << ": " << erorrMessage << " " << symbol << endl<<endl;
   errorCnt++;
 }
+
+
+
 %}
 
 /* ================ PATTERNS ================== */
@@ -89,7 +92,7 @@ switch { return SWITCH;}
 case { return CASE;}
 default { return DEFAULT;}
 continue { return CONTINUE;}
-printf	{return PRINTLN;}
+println	{return PRINTLN;}
 
     /*arithmetic operators*/
 [+-] { yylval.symbol_info = new SymbolInfo(yytext, "ADDOP");  return ADDOP;}
@@ -152,6 +155,7 @@ printf	{return PRINTLN;}
      such as variables, functions, structures etc */
 {IDENTIFIER} {
     yylval.symbol_info = new SymbolInfo(yytext, "ID");
+    cout<<"ID: "<<yytext<<endl<<endl;
     return ID;
 }
     /* ============ STRING =============== */
